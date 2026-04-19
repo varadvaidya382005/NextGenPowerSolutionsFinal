@@ -4,6 +4,7 @@ import {
   BadgeCheck,
   Battery,
   Building2,
+  Calculator,
   CheckCircle2,
   Clock,
   Eye,
@@ -19,7 +20,9 @@ import {
   ShieldCheck,
   Star,
   Target,
+  Leaf,
   Wrench,
+  X,
   Zap,
 } from 'lucide-react'
 import './App.css'
@@ -376,6 +379,10 @@ function FAQ() {
 function Contact() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', city: '', type: 'Residential', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const officeAddress = 'NextGen Power Solutions, Baner Road, Pune 411045, Maharashtra, India'
+  const mapQuery = encodeURIComponent(officeAddress)
+  const mapEmbedUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`
+  const mapOpenUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
   const handleSubmit = e => { e.preventDefault(); setSubmitted(true) }
 
@@ -409,6 +416,18 @@ function Contact() {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="contact-map-card glass-card">
+              <iframe
+                title="NextGen Power Solutions Office Location"
+                src={mapEmbedUrl}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              <a href={mapOpenUrl} target="_blank" rel="noopener noreferrer" className="contact-map-link">
+                Open in Google Maps
+              </a>
             </div>
           </div>
           <div className="contact-form-wrap glass-card">
@@ -503,6 +522,163 @@ function Footer({ setActive }) {
   )
 }
 
+function WhatsAppFloatingButton() {
+  const whatsappNumber = '919876543210'
+  const message = encodeURIComponent('Hi NextGen Power Solutions, I want a free solar quote.')
+  const href = `https://wa.me/${whatsappNumber}?text=${message}`
+
+  return (
+    <a
+      className="whatsapp-float"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with NextGen Power Solutions on WhatsApp"
+      title="Chat on WhatsApp"
+    >
+      <svg viewBox="0 0 448 512" className="whatsapp-icon" aria-hidden="true">
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-221.7 99.3-221.7 221.7 0 39.1 10.2 77.3 29.6 111L0 480l118.7-31.1c32.6 17.8 69.3 27.2 106.1 27.2h.1c122.3 0 223.9-99.5 223.9-221.8 0-59.3-23.1-115-65-157zm-157 341.6c-33.4 0-66.1-8.9-94.8-25.7l-6.8-4-70.4 18.5 18.8-68.6-4.4-7.1c-18.5-29.4-28.2-63.4-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-85.2 184.5-185.3 184.5zm101.7-138.2c-5.5-2.8-32.8-16.1-37.9-17.9-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 17.9-17.6 21.5-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.6-65.8-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30-17.1-41-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 18.9-19.4 46.1 0 27.2 19.8 53.4 22.6 57.1 2.8 3.7 39 59.5 94.6 83.5 35.1 15.2 48.8 16.5 66.3 14 10.7-1.6 32.8-13.4 37.4-26.3 4.6-12.9 4.6-23.9 3.2-26.3-1.3-2.4-5-3.7-10.5-6.5z" />
+      </svg>
+    </a>
+  )
+}
+
+function SolarCalculatorWidget() {
+  const [open, setOpen] = useState(false)
+  const [inputs, setInputs] = useState({
+    monthlyBill: 4500,
+    unitRate: 8,
+    roofArea: 900,
+    sunHours: 5.2,
+  })
+
+  const updateInput = (e) => {
+    const { name, value } = e.target
+    setInputs((prev) => ({ ...prev, [name]: value }))
+  }
+
+  useEffect(() => {
+    if (open) window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [open])
+
+  const monthlyBill = Math.max(0, Number(inputs.monthlyBill) || 0)
+  const unitRate = Math.max(1, Number(inputs.unitRate) || 0)
+  const roofArea = Math.max(0, Number(inputs.roofArea) || 0)
+  const sunHours = Math.max(1, Number(inputs.sunHours) || 0)
+
+  const performanceRatio = 0.75
+  const maxSolarKwByRoof = roofArea / 100
+  const monthlyUnits = monthlyBill / unitRate
+  const idealSystemKw = monthlyUnits / (30 * sunHours * performanceRatio)
+  const recommendedSystemKw = Math.max(0, Math.min(idealSystemKw, maxSolarKwByRoof))
+  const monthlySolarUnits = recommendedSystemKw * 30 * sunHours * performanceRatio
+  const consumedByHome = Math.min(monthlyUnits, monthlySolarUnits)
+  const monthlySavings = consumedByHome * unitRate
+  const monthlyBillAfterSolar = Math.max(0, monthlyBill - monthlySavings)
+  const annualSavings = monthlySavings * 12
+  const savingsIn25Years = annualSavings * 25
+  const offsetPercent = monthlyBill > 0 ? (monthlySavings / monthlyBill) * 100 : 0
+  const estimatedSystemCost = recommendedSystemKw * 55000
+  const paybackYears = annualSavings > 0 ? estimatedSystemCost / annualSavings : 0
+  const annualCo2Reduction = (monthlySolarUnits * 12 * 0.82) / 1000
+  const treeEquivalent = annualCo2Reduction * 45
+  const roofLimited = idealSystemKw > maxSolarKwByRoof + 0.05
+
+  const inr = (value) => `₹${Math.round(value).toLocaleString('en-IN')}`
+  const fixed = (value, digits = 1) => Number(value || 0).toLocaleString('en-IN', {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })
+
+  return (
+    <>
+      <button
+        className={`solar-calc-trigger ${open ? 'open' : ''}`}
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+        aria-controls="solar-calc-panel"
+      >
+        <Calculator size={18} />
+        <span>Solar Calculator</span>
+      </button>
+
+      <section id="solar-calc-panel" className={`solar-calc-panel ${open ? 'open' : ''}`} aria-hidden={!open}>
+        <div className="solar-calc-inner">
+          <div className="solar-calc-head">
+            <div>
+              <h3>Solar Savings Calculator</h3>
+              <p>See exactly how your electricity bill drops after switching to NextGen solar.</p>
+            </div>
+            <button className="solar-calc-close" type="button" onClick={() => setOpen(false)} aria-label="Close solar calculator">
+              <X size={18} />
+            </button>
+          </div>
+
+          <div className="solar-calc-content">
+            <div className="solar-calc-inputs glass-card">
+              <div className="solar-field">
+                <label htmlFor="monthlyBill">Current Monthly Bill (INR)</label>
+                <input id="monthlyBill" name="monthlyBill" type="number" min="0" value={inputs.monthlyBill} onChange={updateInput} />
+              </div>
+              <div className="solar-field">
+                <label htmlFor="unitRate">Electricity Rate (INR per unit)</label>
+                <input id="unitRate" name="unitRate" type="number" min="1" step="0.1" value={inputs.unitRate} onChange={updateInput} />
+              </div>
+              <div className="solar-field">
+                <label htmlFor="roofArea">Available Roof Area (sq ft)</label>
+                <input id="roofArea" name="roofArea" type="number" min="0" value={inputs.roofArea} onChange={updateInput} />
+              </div>
+              <div className="solar-field">
+                <label htmlFor="sunHours">Average Sun Hours per Day</label>
+                <input id="sunHours" name="sunHours" type="number" min="1" max="9" step="0.1" value={inputs.sunHours} onChange={updateInput} />
+              </div>
+            </div>
+
+            <div className="solar-calc-results">
+              <div className="solar-metrics">
+                <div className="solar-metric glass-card">
+                  <IndianRupee size={16} />
+                  <span>Monthly Savings</span>
+                  <strong>{inr(monthlySavings)}</strong>
+                </div>
+                <div className="solar-metric glass-card">
+                  <Zap size={16} />
+                  <span>Bill Reduction</span>
+                  <strong>{fixed(Math.min(offsetPercent, 100), 1)}%</strong>
+                </div>
+                <div className="solar-metric glass-card">
+                  <Leaf size={16} />
+                  <span>CO2 Cut / Year</span>
+                  <strong>{fixed(annualCo2Reduction, 2)} t</strong>
+                </div>
+              </div>
+
+              <div className="solar-breakdown glass-card">
+                <h4>How Your Cost Is Reduced</h4>
+                <div className="solar-line"><span>Current monthly bill</span><strong>{inr(monthlyBill)}</strong></div>
+                <div className="solar-line"><span>Estimated bill after solar</span><strong>{inr(monthlyBillAfterSolar)}</strong></div>
+                <div className="solar-line"><span>Recommended system size</span><strong>{fixed(recommendedSystemKw, 2)} kW</strong></div>
+                <div className="solar-line"><span>Solar energy generated/month</span><strong>{fixed(monthlySolarUnits, 0)} units</strong></div>
+                <div className="solar-line"><span>Annual savings</span><strong>{inr(annualSavings)}</strong></div>
+                <div className="solar-line"><span>Savings in 25 years</span><strong>{inr(savingsIn25Years)}</strong></div>
+                <div className="solar-line"><span>Estimated system cost</span><strong>{inr(estimatedSystemCost)}</strong></div>
+                <div className="solar-line"><span>Estimated payback period</span><strong>{annualSavings > 0 ? `${fixed(paybackYears, 1)} years` : '--'}</strong></div>
+                <div className="solar-line"><span>Tree-equivalent impact/year</span><strong>{fixed(treeEquivalent, 0)} trees</strong></div>
+              </div>
+
+              <p className="solar-note">
+                Assumptions: 1 kW needs ~100 sq ft, plant performance ratio 75%, and 1 unit solar offsets 1 unit grid electricity.
+                {roofLimited ? ' Your current roof area limits full bill offset, but savings are still significant.' : ''}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
+
 /* ── ROOT ── */
 export default function App() {
   const [active, setActive] = useState('Home')
@@ -512,6 +688,8 @@ export default function App() {
     <>
       <Navbar active={active} setActive={setActive} />
       <main><PageComponent setActive={setActive} /></main>
+      <SolarCalculatorWidget />
+      <WhatsAppFloatingButton />
       <Footer setActive={setActive} />
     </>
   )
