@@ -1,4 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react'
+import {
+  Award,
+  BadgeCheck,
+  Battery,
+  Building2,
+  CheckCircle2,
+  Clock,
+  Eye,
+  Headset,
+  House,
+  IndianRupee,
+  Lightbulb,
+  LineChart,
+  Lock,
+  Mail,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Star,
+  Target,
+  Wrench,
+  Zap,
+} from 'lucide-react'
 import './App.css'
 
 function useInView(threshold = 0.12) {
@@ -84,18 +107,18 @@ function Home({ setActive }) {
     { value: '50MW+', label: 'Power Generated' },
   ]
   const services = [
-    { icon: '🏠', title: 'Residential Solar', desc: 'Custom rooftop systems for homes. Cut electricity bills by up to 90%.', color: 'var(--green)' },
-    { icon: '🏭', title: 'Commercial Solar', desc: 'Large-scale installations for businesses and commercial complexes.', color: 'var(--cyan)' },
-    { icon: '🔋', title: 'Battery Storage', desc: 'Advanced battery solutions for 24/7 energy independence.', color: 'var(--amber)' },
-    { icon: '🔧', title: 'Maintenance & AMC', desc: 'Annual contracts to keep your system at peak performance.', color: 'var(--green)' },
-    { icon: '📊', title: 'Energy Audit', desc: 'Free assessment to recommend the right solar solution for you.', color: 'var(--cyan)' },
-    { icon: '⚡', title: 'Grid Tie Systems', desc: 'Feed excess power to the grid and earn credits via net metering.', color: 'var(--amber)' },
+    { Icon: House, title: 'Residential Solar', desc: 'Custom rooftop systems for homes. Cut electricity bills by up to 90%.', color: 'var(--green)' },
+    { Icon: Building2, title: 'Commercial Solar', desc: 'Large-scale installations for businesses and commercial complexes.', color: 'var(--cyan)' },
+    { Icon: Battery, title: 'Battery Storage', desc: 'Advanced battery solutions for 24/7 energy independence.', color: 'var(--amber)' },
+    { Icon: Wrench, title: 'Maintenance & AMC', desc: 'Annual contracts to keep your system at peak performance.', color: 'var(--green)' },
+    { Icon: LineChart, title: 'Energy Audit', desc: 'Free assessment to recommend the right solar solution for you.', color: 'var(--cyan)' },
+    { Icon: Zap, title: 'Grid Tie Systems', desc: 'Feed excess power to the grid and earn credits via net metering.', color: 'var(--amber)' },
   ]
   const whyUs = [
-    { icon: '✅', title: 'MNRE Certified', desc: 'Government-approved and certified installation team.' },
-    { icon: '💰', title: 'Best Price Guarantee', desc: 'Competitive pricing with flexible EMI options.' },
-    { icon: '🛡️', title: '25-Year Warranty', desc: 'Industry-leading warranty on panels and workmanship.' },
-    { icon: '📞', title: '24/7 Support', desc: 'Round-the-clock customer support and monitoring.' },
+    { Icon: BadgeCheck, title: 'MNRE Certified', desc: 'Government-approved and certified installation team.' },
+    { Icon: IndianRupee, title: 'Best Price Guarantee', desc: 'Competitive pricing with flexible EMI options.' },
+    { Icon: ShieldCheck, title: '25-Year Warranty', desc: 'Industry-leading warranty on panels and workmanship.' },
+    { Icon: Headset, title: '24/7 Support', desc: 'Round-the-clock customer support and monitoring.' },
   ]
 
   return (
@@ -124,7 +147,11 @@ function Home({ setActive }) {
             <button className="btn-glass" onClick={() => setActive('About')}>Learn More</button>
           </div>
           <div className="hero-trust">
-            <span>⭐⭐⭐⭐⭐</span>
+            <span className="hero-stars" aria-label="Rated 5 out of 5 stars">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={14} className="hero-star" />
+              ))}
+            </span>
             <span>Rated 4.9/5 by 500+ customers</span>
           </div>
         </div>
@@ -154,7 +181,9 @@ function Home({ setActive }) {
           {services.map((s, i) => (
             <div className="service-card glass-card" key={s.title} style={{ animationDelay: `${i * 0.08}s`, '--accent': s.color }}>
               <div className="service-accent" />
-              <div className="service-icon">{s.icon}</div>
+              <div className="service-icon">
+                <s.Icon aria-hidden="true" />
+              </div>
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
             </div>
@@ -174,7 +203,7 @@ function Home({ setActive }) {
           <div className="why-cards">
             {whyUs.map((w, i) => (
               <div className="why-card glass-card" key={w.title} style={{ animationDelay: `${i * 0.1}s` }}>
-                <span className="why-icon">{w.icon}</span>
+                <span className="why-icon"><w.Icon aria-hidden="true" /></span>
                 <div>
                   <h4>{w.title}</h4>
                   <p>{w.desc}</p>
@@ -233,13 +262,13 @@ function About() {
       <section className={`mission-section section ${missionVisible ? 'visible' : ''}`} ref={missionRef}>
         <div className="mission-grid">
           {[
-            { icon: '🎯', title: 'Our Mission', desc: 'To accelerate India\'s transition to solar energy by making it accessible, affordable, and hassle-free for every household and business.', color: 'var(--green)' },
-            { icon: '👁️', title: 'Our Vision', desc: 'A future where every rooftop generates clean energy — reducing carbon footprints and empowering communities with energy independence.', color: 'var(--cyan)' },
-            { icon: '💡', title: 'Our Values', desc: 'Integrity, quality, and customer-first approach. We stand behind every installation with industry-leading warranties and support.', color: 'var(--amber)' },
+            { Icon: Target, title: 'Our Mission', desc: 'To accelerate India\'s transition to solar energy by making it accessible, affordable, and hassle-free for every household and business.', color: 'var(--green)' },
+            { Icon: Eye, title: 'Our Vision', desc: 'A future where every rooftop generates clean energy — reducing carbon footprints and empowering communities with energy independence.', color: 'var(--cyan)' },
+            { Icon: Lightbulb, title: 'Our Values', desc: 'Integrity, quality, and customer-first approach. We stand behind every installation with industry-leading warranties and support.', color: 'var(--amber)' },
           ].map((m, i) => (
             <div className="mission-card glass-card" key={m.title} style={{ animationDelay: `${i * 0.12}s`, '--accent': m.color }}>
               <div className="mission-accent" />
-              <div className="mission-icon">{m.icon}</div>
+              <div className="mission-icon"><m.Icon aria-hidden="true" /></div>
               <h3 style={{ color: m.color }}>{m.title}</h3>
               <p>{m.desc}</p>
             </div>
@@ -284,7 +313,7 @@ function About() {
         <h2 className="section-title">Certified & <span className="gradient-text">Trusted</span></h2>
         <div className="certs-grid">
           {['MNRE Approved', 'ISO 9001:2015', 'BIS Certified', 'DISCOM Empanelled', 'NABCB Accredited'].map(c => (
-            <div className="cert-badge glass-card" key={c}><span>🏆</span> {c}</div>
+            <div className="cert-badge glass-card" key={c}><Award size={15} aria-hidden="true" /> {c}</div>
           ))}
         </div>
       </section>
@@ -334,8 +363,8 @@ function FAQ() {
           <h3>Still have questions?</h3>
           <p>Our solar experts are available Mon–Sat, 9 AM – 6 PM</p>
           <div className="faq-contact-options">
-            <a href="tel:+911800123456" className="contact-chip">📞 1800-123-456</a>
-            <a href="mailto:info@nextgenpowersolutions.in" className="contact-chip">✉️ info@nextgenpowersolutions.in</a>
+            <a href="tel:+911800123456" className="contact-chip"><Phone size={15} aria-hidden="true" /> 1800-123-456</a>
+            <a href="mailto:info@nextgenpowersolutions.in" className="contact-chip"><Mail size={15} aria-hidden="true" /> info@nextgenpowersolutions.in</a>
           </div>
         </div>
       </section>
@@ -367,13 +396,13 @@ function Contact() {
             <p className="contact-intro">Our solar consultants are ready to help you find the perfect solution.</p>
             <div className="contact-details">
               {[
-                { icon: '📞', title: 'Phone / WhatsApp', lines: ['1800-123-456 (Toll Free)', '+91 98765 43210'] },
-                { icon: '✉️', title: 'Email', lines: ['info@nextgenpowersolutions.in', 'sales@nextgenpowersolutions.in'] },
-                { icon: '📍', title: 'Office', lines: ['NextGen Power Solutions', 'Baner Road, Pune – 411045', 'Maharashtra, India'] },
-                { icon: '🕐', title: 'Working Hours', lines: ['Monday – Saturday: 9 AM – 6 PM', 'Sunday: Closed'] },
+                { Icon: Phone, title: 'Phone / WhatsApp', lines: ['1800-123-456 (Toll Free)', '+91 98765 43210'] },
+                { Icon: Mail, title: 'Email', lines: ['info@nextgenpowersolutions.in', 'sales@nextgenpowersolutions.in'] },
+                { Icon: MapPin, title: 'Office', lines: ['NextGen Power Solutions', 'Baner Road, Pune – 411045', 'Maharashtra, India'] },
+                { Icon: Clock, title: 'Working Hours', lines: ['Monday – Saturday: 9 AM – 6 PM', 'Sunday: Closed'] },
               ].map(item => (
                 <div className="contact-item" key={item.title}>
-                  <span className="contact-icon">{item.icon}</span>
+                  <span className="contact-icon"><item.Icon aria-hidden="true" /></span>
                   <div>
                     <strong>{item.title}</strong>
                     {item.lines.map(l => <p key={l}>{l}</p>)}
@@ -385,7 +414,7 @@ function Contact() {
           <div className="contact-form-wrap glass-card">
             {submitted ? (
               <div className="form-success">
-                <div className="success-icon">✅</div>
+                <div className="success-icon"><CheckCircle2 aria-hidden="true" /></div>
                 <h3>Thank You!</h3>
                 <p>We've received your enquiry. Our team will contact you within 24 hours.</p>
                 <button className="btn-primary" onClick={() => setSubmitted(false)}>Submit Another</button>
@@ -427,7 +456,7 @@ function Contact() {
                   <textarea id="message" name="message" rows="4" placeholder="Tell us about your energy needs, roof size, monthly bill, etc." value={form.message} onChange={handleChange} />
                 </div>
                 <button type="submit" className="btn-primary full-width">Submit Enquiry →</button>
-                <p className="form-note">🔒 Your information is safe with us. No spam, ever.</p>
+                <p className="form-note"><Lock size={14} aria-hidden="true" /> Your information is safe with us. No spam, ever.</p>
               </form>
             )}
           </div>
@@ -461,9 +490,9 @@ function Footer({ setActive }) {
         </div>
         <div className="footer-links-group">
           <strong>Contact</strong>
-          <span>📞 1800-123-456</span>
-          <span>✉️ info@nextgenpowersolutions.in</span>
-          <span>📍 Pune, Maharashtra</span>
+          <span className="footer-contact-item"><Phone size={14} aria-hidden="true" /> 1800-123-456</span>
+          <span className="footer-contact-item"><Mail size={14} aria-hidden="true" /> info@nextgenpowersolutions.in</span>
+          <span className="footer-contact-item"><MapPin size={14} aria-hidden="true" /> Pune, Maharashtra</span>
         </div>
       </div>
       <div className="footer-bottom">

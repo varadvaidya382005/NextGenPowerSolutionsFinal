@@ -112,6 +112,8 @@
 }
 .btn-glass:hover { background: var(--glass-hover); border-color: var(--green); }
 .hero-trust { display: flex; align-items: center; gap: 0.6rem; color: var(--white-dim); font-size: 0.82rem; }
+.hero-stars { display: inline-flex; gap: 0.2rem; color: #facc15; }
+.hero-star { fill: currentColor; stroke-width: 1.6; }
 .hero-visual {
   flex: 1; display: flex; align-items: center; justify-content: center;
   position: relative; z-index: 1; min-height: 280px;
@@ -172,7 +174,12 @@
   background: var(--accent, var(--green));
   border-radius: 12px 12px 0 0;
 }
-.service-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+.service-icon {
+  width: 2.2rem; height: 2.2rem; margin-bottom: 1rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--accent, var(--green));
+}
+.service-icon svg { width: 1.85rem; height: 1.85rem; stroke-width: 2.1; }
 .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
 .service-card p  { color: var(--white-dim); font-size: 0.87rem; line-height: 1.65; }
 
@@ -188,7 +195,12 @@
   transition: background 0.2s;
 }
 .why-card:hover { background: var(--glass-hover); }
-.why-icon { font-size: 1.4rem; flex-shrink: 0; }
+.why-icon {
+  width: 1.6rem; height: 1.6rem; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--green-light);
+}
+.why-icon svg { width: 1.3rem; height: 1.3rem; stroke-width: 2.1; }
 .why-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.25rem; }
 .why-card p  { font-size: 0.83rem; color: var(--white-dim); line-height: 1.5; }
 
@@ -222,7 +234,12 @@
   position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: var(--accent, var(--green)); border-radius: 12px 12px 0 0;
 }
-.mission-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+.mission-icon {
+  width: 2.2rem; height: 2.2rem; margin-bottom: 0.8rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--accent, var(--green));
+}
+.mission-icon svg { width: 1.85rem; height: 1.85rem; stroke-width: 2.1; }
 .mission-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
 .mission-card p  { color: var(--white-dim); font-size: 0.88rem; line-height: 1.65; }
 
@@ -277,6 +294,7 @@
   display: flex; align-items: center; gap: 0.5rem;
   transition: all 0.2s;
 }
+.cert-badge svg { color: var(--amber-light); stroke-width: 2.1; flex-shrink: 0; }
 .cert-badge:hover { border-color: var(--green); color: var(--green-light); }
 
 /* ── FAQ ── */
@@ -307,7 +325,9 @@
   border-radius: 8px; padding: 0.6rem 1.2rem;
   font-size: 0.82rem; font-weight: 600; color: var(--white-dim);
   text-decoration: none; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 0.45rem;
 }
+.contact-chip svg { flex-shrink: 0; stroke-width: 2.1; }
 .contact-chip:hover { border-color: var(--green); color: var(--green-light); }
 
 /* ── CONTACT ── */
@@ -317,7 +337,12 @@
 .contact-intro { color: var(--white-dim); font-size: 0.88rem; line-height: 1.7; margin-bottom: 2rem; }
 .contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
 .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
-.contact-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+.contact-icon {
+  width: 1.5rem; height: 1.5rem; flex-shrink: 0; margin-top: 2px;
+  color: var(--green-light);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.contact-icon svg { width: 1.2rem; height: 1.2rem; stroke-width: 2.1; }
 .contact-item strong { display: block; font-size: 0.82rem; font-weight: 700; color: var(--green-light); margin-bottom: 0.3rem; }
 .contact-item p { font-size: 0.82rem; color: var(--white-dim); line-height: 1.6; }
 .contact-form-wrap { padding: 2.5rem; }
@@ -339,9 +364,17 @@
 .form-group textarea:focus { border-color: var(--green); }
 .form-group select option { background: var(--bg-soft); color: var(--white); }
 .form-group textarea { resize: vertical; }
-.form-note { font-size: 0.75rem; color: var(--white-dim); text-align: center; margin-top: 0.8rem; opacity: 0.6; }
+.form-note {
+  font-size: 0.75rem; color: var(--white-dim); text-align: center; margin-top: 0.8rem; opacity: 0.6;
+  display: flex; align-items: center; justify-content: center; gap: 0.35rem;
+}
+.form-note svg { stroke-width: 2.1; flex-shrink: 0; }
 .form-success { text-align: center; padding: 3rem 1rem; }
-.success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.success-icon {
+  margin-bottom: 1rem; color: var(--green-light);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.success-icon svg { width: 3.5rem; height: 3.5rem; stroke-width: 1.8; }
 .form-success h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--green-light); }
 .form-success p  { color: var(--white-dim); margin-bottom: 2rem; line-height: 1.6; font-size: 0.9rem; }
 
@@ -358,6 +391,8 @@
 .footer-links-group { display: flex; flex-direction: column; gap: 0.6rem; }
 .footer-links-group strong { color: var(--white); font-size: 0.82rem; margin-bottom: 0.3rem; }
 .footer-links-group span { font-size: 0.8rem; color: var(--white-dim); }
+.footer-contact-item { display: inline-flex; align-items: center; gap: 0.45rem; }
+.footer-contact-item svg { stroke-width: 2.1; flex-shrink: 0; }
 .footer-link {
   background: none; border: none; cursor: pointer;
   font-size: 0.8rem; color: var(--white-dim); text-align: left;
