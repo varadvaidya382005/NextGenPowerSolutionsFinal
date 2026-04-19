@@ -252,9 +252,7 @@ function About() {
 
   return (
     <div className="page">
-      <section className="page-hero">
-        <div className="aurora-orb orb-page-green" />
-        <div className="aurora-orb orb-page-cyan" />
+      <section className="page-hero about-hero">
         <div className="page-hero-content">
           <div className="section-tag">// about us</div>
           <h1>Powering India's <span className="gradient-text">Clean Energy</span> Future</h1>

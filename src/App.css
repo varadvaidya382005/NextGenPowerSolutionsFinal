@@ -224,6 +224,13 @@
 .page-hero-content { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; animation: fadeUp 0.7s ease both; }
 .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--white); margin-bottom: 1rem; }
 .page-hero p  { color: var(--white-dim); font-size: 1rem; line-height: 1.7; }
+.about-hero {
+  background:
+    linear-gradient(125deg, rgba(2, 6, 23, 0.88) 12%, rgba(2, 6, 23, 0.72) 58%, rgba(8, 47, 73, 0.62) 100%),
+    url('https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=2200&q=80');
+  background-size: cover;
+  background-position: center;
+}
 
 /* ── ABOUT ── */
 .mission-section { background: var(--bg); }
