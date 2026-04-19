@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import {
   Award,
   BadgeCheck,
@@ -173,6 +174,18 @@ function Home({ setActive }) {
             <span className="stat-label">{s.label}</span>
           </div>
         ))}
+      </section>
+
+      {/* SOLAR ANIMATION */}
+      <section className="solar-animation-section">
+        <div className="solar-animation-wrap">
+          <DotLottieReact
+            src="https://lottie.host/99935afc-18bf-49bf-bc35-2928a77d6bb8/8bT7h2PBkn.lottie"
+            loop
+            autoplay
+            className="solar-animation"
+          />
+        </div>
       </section>
 
       {/* SERVICES */}
